@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Book Inventory</h2>
+        <div class="mb-3">
+            <a href="#!/books/new" class="btn btn-primary">Add New Book</a>
+        </div>
+        
+        <!-- Error message -->
+        <div class="alert alert-danger" ng-if="error">
+            {{ error }}
+        </div>
+        
+        <!-- Loading indicator -->
+        <div class="text-center" ng-if="loading">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Loading books...</p>
+        </div>
+        
+        <!-- Books table -->
+        <div ng-if="!loading && books.length > 0">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Pages</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="book in books">
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td>{{ book.nbPages }}</td>
+                        <td>
+                            <a href="#!/books/edit/{{ book.id }}" class="btn btn-sm btn-warning me-2">Edit</a>
+                            <button ng-click="deleteBook(book.id)" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- No books message -->
+        <div class="alert alert-info" ng-if="!loading && books.length === 0">
+            No books found. Click "Add New Book" to add a book to the inventory.
+        </div>
+    </div>
+</div>
